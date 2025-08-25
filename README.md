@@ -4,17 +4,17 @@
 
 public static void main(String\[] args) {
 
-<t/>GpioNative gpio = new GpioNative();
+&nbsp;   GpioNative gpio = new GpioNative();
 
-gpio.openChip("gpiochip0");
+&nbsp;   gpio.openChip("gpiochip0");
 
-gpio.getChipLine("PIN\_16");
+&nbsp;   gpio.getChipLine("PIN\_16");
 
-gpio.linRequestInput();
+&nbsp;   gpio.linRequestInput();
 
-System.out.println(gpio.lineGetValue());
+&nbsp;   System.out.println(gpio.lineGetValue());
 
-gpio.closeChip();
+&nbsp;   gpio.closeChip();
 
 }
 
