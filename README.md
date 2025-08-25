@@ -7,7 +7,7 @@
 public static void main(String\[] args) {
     GpioNative gpio = new GpioNative();
     gpio.openChip("gpiochip0");
-    gpio.getChipLine("PIN\_16");
+    gpio.getChipLine("PIN_16");
     gpio.linRequestInput();
     System.out.println(gpio.lineGetValue());
     gpio.closeChip();
