@@ -33,7 +33,7 @@ public class GpioNative {
     public native int getChipLine(int lineNum);
     public native int lineRequestInput();
     public native int lineRequestOutput();
-public native int lineRequestRisingEdgeEvents();
+    public native int lineRequestRisingEdgeEvents();
     public native int lineGetValue();
     public native int lineSetValue(int value);
     public native int lineEventWait();
