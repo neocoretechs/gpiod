@@ -16,6 +16,12 @@ JNIEXPORT jint JNICALL Java_com_neocoretechs_robocore_GpioNative_getChipLine(JNI
 JNIEXPORT jint JNICALL Java_com_neocoretechs_robocore_GpioNative_lineRequestInput(JNIEnv *env, jobject obj) {
     return line_request_input();
 }
+JNIEXPORT jint JNICALL Java_com_neocoretechs_robocore_GpioNative_findChipLine(JNIEnv *env, jobject obj, jstring lineName) {
+    const char *nativeLineName = (*env)->GetStringUTFChars(env, lineName, 0);
+    int ret = find_chip_line(nativeLineName);
+    (*env)->ReleaseStringUTFChars(env, lineName, nativeLineName);
+    return ret;
+}
 JNIEXPORT jint JNICALL Java_com_neocoretechs_robocore_GpioNative_lineRequestOutput(JNIEnv *env, jobject obj) {
     return line_request_output();
 }
@@ -34,6 +40,9 @@ JNIEXPORT jint JNICALL Java_com_neocoretechs_robocore_GpioNative_lineEventWait(J
 JNIEXPORT jint JNICALL Java_com_neocoretechs_robocore_GpioNative_lineEventRead(JNIEnv *env, jobject obj) {
     return line_event_read();
 }
+JNIEXPORT jint JNICALL Java_com_neocoretechs_robocore_GpioNative_lineRelease(JNIEnv *env, jobject obj) {
+    return line_release();
+}
 JNIEXPORT void JNICALL Java_com_neocoretechs_robocore_GpioNative_closeChip(JNIEnv *env, jobject obj) {
-    return close_chip();
+    close_chip();
 }
