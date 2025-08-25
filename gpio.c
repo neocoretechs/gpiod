@@ -11,7 +11,6 @@ struct timespec ts = { 1, 0 };
 static struct gpiod_line_event event;
 static struct gpiod_chip *chip;
 static struct gpiod_line **lines;
-static char** line_names;
 static int max_lines;
 int ret;
 
@@ -24,26 +23,30 @@ int open_chip(char* chipname) {
 	  // Get the number of lines available on the chip
     max_lines = gpiod_chip_num_lines(chip);
     lines = malloc(max_lines * sizeof(struct gpiod_line*));
-	line_names = malloc(max_lines * sizeof(char*)); 
-    if (!lines || !line_names) {
+    if (!lines) {
         close_chip();
         return -1; // Memory allocation error
     }
 	 // Initialize line names
     for (int i = 0; i < max_lines; i++) {
         lines[i] = gpiod_chip_get_line(chip, i);
-        line_names[i] = gpiod_line_get_name(lines[i]); // Store the line name
+		if (!lines[i]) {
+			perror("Get line failed");
+			lines_release();
+			close_chip();
+			return -1;
+		}
+
     }
 	return 0;
 }
-
 int find_chip_line(char* linename) {
-	for (int i = 0; i < max_lines; i++) {
-        if (lines[i] != NULL && strcmp(line_names[i], linename) == 0) {
-            return i; // Return the index if found
-        }
-    }
-	return 0;
+	struct gpiod_line* sline = gpiod_chip_find_line(chip, linename);
+	if (!sline) {
+		perror("Find line by name failed");
+		return -1;
+	}
+	return gpiod_line_offset(sline);
 }
 int line_request_input(int line) {
 	ret = gpiod_line_request_input(lines[line], CONSUMER);
@@ -123,10 +126,6 @@ int line_release(int line) {
 			gpiod_line_release(lines[line]);
 			lines[line] = NULL;
 		}
-		if(line_names[line]) {
-			free(line_names[line]);
-			line_names[line] = NULL;
-		}
 	}
 	return 0;
 }
@@ -139,14 +138,6 @@ int lines_release() {
 			}
 		}
 	}
-	if(line_names) {
-		for (int i = 0; i < max_lines; i++) {
-			if(line_names[i]) {
-				free(line_names[i]);
-				line_names[i] = NULL;
-			}
-		}
-	}
 	return 0;
 }
 void close_chip() {
@@ -155,10 +146,6 @@ void close_chip() {
 		if(lines) {
 			free(lines);
 			lines = NULL;
-		}
-		if(line_names) {
-			free(line_names);
-			line_names = NULL;
 		}
 		gpiod_chip_close(chip);
 		chip = NULL;
