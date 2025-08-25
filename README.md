@@ -1,8 +1,8 @@
 <h1>gpio Example usage</h1>
 
-<> java
+<> Code
 
-```
+```java
 
 public static void main(String\[] args) {
 
@@ -24,7 +24,7 @@ public static void main(String\[] args) {
 
 <h2>Native bindings</h2>
 
-<> java
+
 
 ```
 
