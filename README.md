@@ -1,6 +1,6 @@
 <h1>gpio Example usage</h1>
 
-<> Code
+
 
 ```java
 
@@ -26,7 +26,7 @@ public static void main(String\[] args) {
 
 
 
-```
+```java
 
 package com.neocoretechs.robocore;
 
@@ -34,11 +34,11 @@ package com.neocoretechs.robocore;
 
 public class GpioNative {
 
-static {
+&nbsp;   static {
 
-System.loadLibrary("gpiodjni"); // Your compiled .so/.dll	
+&nbsp;   System.loadLibrary("gpiodjni"); // Your compiled .so/.dll	
 
-}
+&nbsp;   }
 
 public native int openChip(String chipName);
 
