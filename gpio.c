@@ -24,7 +24,7 @@ int get_chip_line(unsigned int line_num) {
 	line = gpiod_chip_get_line(chip, line_num);
 	if (!line) {
 		perror("Get line failed\n");
-		close_chip()
+		close_chip();
 		return -1;
 	}
 	return 0;
@@ -89,10 +89,7 @@ int line_event_read() {
     if(event.event_type == GPIOD_LINE_EVENT_RISING_EDGE) {
         print("Rising edge detected on line\n");
 		return 1;
-	} else if(event.event_type == GPIOD_LINE_EVENT_BOTH_EDGES) {
-		print("Both edges detected on line\n");
-		return 2;
-    } else if(event.event_type == GPIOD_LINE_EVENT_FALLING_EDGE) {
+	} else if(event.event_type == GPIOD_LINE_EVENT_FALLING_EDGE) {
         print("Falling edge detected on line\n"); 
 		return 3;  
     } else {
