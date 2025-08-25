@@ -4,7 +4,7 @@
 
 public static void main(String\[] args) {
 
-<t>GpioNative gpio = new GpioNative();
+<t/>GpioNative gpio = new GpioNative();
 
 &nbsp;	gpio.openChip("gpiochip0");
 
