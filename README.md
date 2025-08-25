@@ -4,7 +4,7 @@
 
 ```java
 
-public static void main(String\[] args) {
+public static void main(String[] args) {
     GpioNative gpio = new GpioNative();
     gpio.openChip("gpiochip0");
     gpio.getChipLine("PIN_16");
@@ -26,7 +26,7 @@ package com.neocoretechs.robocore;
 public class GpioNative {
 
     static {
-    System.loadLibrary("gpiodjni"); // Your compiled .so/.dll
+    System.loadLibrary("gpiodjni"); // Your compiled .so
     }
 
     public native int openChip(String chipName);
